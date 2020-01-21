@@ -20,7 +20,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="container">
-        <h5>Edit me in src/App.jsx</h5>
+        <h5>Edit me in src/children/App.jsx</h5>
         <h1>Omnisearch</h1>
         <div className="form-group">
           <label htmlFor="searchField">Search everything in one place</label>
