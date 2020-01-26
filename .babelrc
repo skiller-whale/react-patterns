@@ -1,6 +1,6 @@
 {
   "presets": ["react", ["env", { "modules": false }]],
-  "plugins": ["babel-plugin-transform-object-rest-spread"],
+  "plugins": ["babel-plugin-transform-object-rest-spread", "transform-class-properties"],
   "env": {
     "test": {
       "presets": ["react", ["env", { "modules": "commonjs" }]],
