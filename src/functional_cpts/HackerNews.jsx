@@ -1,4 +1,5 @@
 import React from "react"
+import JsonFetcher from "./JsonFetcher"
 
 class HackerNewsRow extends React.Component {
   constructor(props) {
@@ -16,40 +17,10 @@ class HackerNewsRow extends React.Component {
   }
 }
 
-class HackerNews extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { hn_hits: [] }
-  }
-
-  componentDidMount() {
-    this.fetchHNData()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.term !== this.props.term) {
-      this.setState({ hn_hits: [] })
-      this.fetchHNData()
-    }
-  }
-
-  fetchHNData() {
-    fetch(
-      "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
-      encodeURIComponent(this.props.term)
-    )
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        const hits = json["hits"]
-        this.setState({ hn_hits: hits })
-      })
-  }
-
+class HackerNewsDisplay extends React.Component {
   render() {
     // We get other fields back that we're not using. For example, the user who submitted the URL is in the author field.
-    const hn_links = this.state.hn_hits.map(
+    const hn_links = this.props.data && this.props.data.hits.map(
       ({ objectID, author, created_at, points, title, url }) => {
         const date = new Date(created_at)
         return (
@@ -69,6 +40,15 @@ class HackerNews extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+class HackerNews extends React.Component {
+  render() {
+    const url = "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
+      encodeURIComponent(this.props.term)
+
+    return <JsonFetcher DataConsumer={HackerNewsDisplay} url={url} />
   }
 }
 

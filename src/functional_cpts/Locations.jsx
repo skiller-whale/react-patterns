@@ -1,39 +1,13 @@
 import React from "react"
+import JsonFetcher from "./JsonFetcher"
 
-class Locations extends React.Component {
+class LocationDisplay extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { locations: [] }
-  }
-
-  componentDidMount() {
-    this.fetchLocations()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.term !== this.props.term) {
-      this.setState({ locations: [] })
-      this.fetchLocations()
-    }
-  }
-
-  fetchLocations() {
-    this.setState({ locations: [] })
-
-    fetch(
-      "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
-        encodeURIComponent(this.props.term)
-    )
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        this.setState({ locations: json })
-      })
   }
 
   render() {
-    const location_rows = this.state.locations.map(
+    const location_rows = this.props.data && this.props.data.map(
       ({ place_id, display_name, lat, lon }) => {
         return (
           <tr key={place_id}>
@@ -58,6 +32,19 @@ class Locations extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+class Locations extends React.Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    const url = "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
+      encodeURIComponent(this.props.term)
+
+    return <JsonFetcher DataConsumer={LocationDisplay} url={url} />
   }
 }
 

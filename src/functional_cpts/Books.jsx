@@ -1,37 +1,9 @@
 import React from "react"
+import JsonFetcher from "./JsonFetcher"
 
-class Books extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { book_hits: [] }
-  }
-
-  componentDidMount() {
-    this.fetchBookData()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.term !== this.props.term) {
-      this.setState({ book_hits: [] })
-      this.fetchBookData()
-    }
-  }
-
-  fetchBookData() {
-    fetch(
-      "http://openlibrary.org/query.json?type=/type/edition&limit=10&*=&title=" +
-      encodeURIComponent(this.props.term)
-    )
-      .then(response => {
-        return response.json()
-      })
-      .then(json => {
-        this.setState({ book_hits: json })
-      })
-  }
-
+class BooksDisplay extends React.Component {
   render() {
-    const book_rows = this.state.book_hits.map(book => {
+    const book_rows = this.props.data && this.props.data.map(book => {
       const subject_list = book.subjects && book.subjects.join("; ")
       return (
         <tr key={book.key}>
@@ -57,6 +29,15 @@ class Books extends React.Component {
         </div>
       </div>
     )
+  }
+}
+
+class Books extends React.Component {
+  render() {
+    const url = "http://openlibrary.org/query.json?type=/type/edition&limit=10&*=&title=" +
+      encodeURIComponent(this.props.term)
+
+    return <JsonFetcher DataConsumer={BooksDisplay} url={url} />
   }
 }
 

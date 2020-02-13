@@ -1,4 +1,6 @@
 import React from "react"
+
+import SearchBox from "./SearchBox"
 import Books from "./Books"
 import Locations from "./Locations"
 import HackerNews from "./HackerNews"
@@ -8,13 +10,11 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = { term: "London" }
-    this.termChanged = this.termChanged.bind(this)
+    this.setSearchTerm = this.setSearchTerm.bind(this)
   }
 
-  termChanged(event) {
-    event.preventDefault()
-    // This is happening too often at the moment. We'll fix that later.
-    this.setState({ term: event.target.value })
+  setSearchTerm(searchTerm) {
+    this.setState({ term: searchTerm })
   }
 
   render() {
@@ -22,16 +22,7 @@ class App extends React.Component {
       <div className="container">
         <h5>Edit me in src/functional_cpts/App.jsx</h5>
         <h1>Omnisearch</h1>
-        <div className="form-group">
-          <label htmlFor="searchField">Search everything in one place</label>
-          <input
-            className="form-control"
-            type="text"
-            id="searchField"
-            onChange={this.termChanged}
-            placeholder={this.state.term}
-          />
-        </div>
+        <SearchBox setSearchTerm={this.setSearchTerm}/>
         <div className="row">
           <div className="col-lg-6 col-md-12">
             <Reddit term={this.state.term} />
