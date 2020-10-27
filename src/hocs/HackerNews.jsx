@@ -1,25 +1,44 @@
 import React from "react"
 
-class HackerNewsRow extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+const HackerNewsRow = props => {
+  return <tr>
+    <td>{props.date.toLocaleDateString()}</td>
+    <td>{props.points}</td>
+    <td>
+      <a href={props.url}>{props.title}</a>
+    </td>
+  </tr>
+}
 
-  render() {
-    return <tr>
-      <td>{this.props.date.toLocaleDateString()}</td>
-      <td>{this.props.points}</td>
-      <td>
-        <a href={this.props.url}>{this.props.title}</a>
-      </td>
-    </tr>
-  }
+const HackerNewsDisplay = props => {
+  // We get other fields back that we're not using. For example, the user who submitted the URL is in the author field.
+  const hn_links = props.data && props.data["hits"].map(
+    ({ objectID, author, created_at, points, title, url }) => {
+      const date = new Date(created_at)
+      return (
+        <HackerNewsRow key={objectID} author={author} date={date} points={points} url={url} title={title} />
+      )
+    }
+  )
+
+  return (
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h3 className="panel-title">Hacker News</h3>
+      </div>
+      <div className="panel-body">
+        <table className="table table-striped">
+          <tbody>{hn_links}</tbody>
+        </table>
+      </div>
+    </div>
+  )
 }
 
 class HackerNews extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { hn_hits: [] }
+    this.state = { data: null }
   }
 
   componentDidMount() {
@@ -28,7 +47,7 @@ class HackerNews extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.term !== this.props.term) {
-      this.setState({ hn_hits: [] })
+      this.setState({ data: null })
       this.fetchHNData()
     }
   }
@@ -42,33 +61,12 @@ class HackerNews extends React.Component {
         return response.json()
       })
       .then(json => {
-        const hits = json["hits"]
-        this.setState({ hn_hits: hits })
+        this.setState({ data: json })
       })
   }
 
   render() {
-    // We get other fields back that we're not using. For example, the user who submitted the URL is in the author field.
-    const hn_links = this.state.hn_hits.map(
-      ({ objectID, author, created_at, points, title, url }) => {
-        const date = new Date(created_at)
-        return (
-          <HackerNewsRow key={objectID} author={author} date={date} points={points} url={url} title={title} />
-        )
-      }
-    )
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title">Hacker News</h3>
-        </div>
-        <div className="panel-body">
-          <table className="table table-striped">
-            <tbody>{hn_links}</tbody>
-          </table>
-        </div>
-      </div>
-    )
+    return <HackerNewsDisplay data={this.state.data} />
   }
 }
 

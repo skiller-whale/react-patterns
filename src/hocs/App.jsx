@@ -1,6 +1,4 @@
 import React from "react"
-import Books from "./Books"
-import Locations from "./Locations"
 import HackerNews from "./HackerNews"
 import Reddit from "./Reddit"
 
@@ -38,14 +36,6 @@ class App extends React.Component {
           </div>
           <div className="col-lg-6 col-md-12">
             <HackerNews term={this.state.term} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-lg-6 col-md-12">
-            <Locations term={this.state.term} />
-          </div>
-          <div className="col-lg-6 col-md-12">
-            <Books term={this.state.term} />
           </div>
         </div>
       </div>
