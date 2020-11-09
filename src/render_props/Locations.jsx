@@ -1,9 +1,37 @@
 import React from "react"
 
+const LocationsDisplay = props => {
+  const location_rows = props.data && props.data.map(
+    ({ place_id, display_name, lat, lon }) => {
+      return (
+        <tr key={place_id}>
+          <td>{display_name}</td>
+          <td>
+            {lat},{lon}
+          </td>
+        </tr>
+      )
+    }
+  )
+
+  return (
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h3 className="panel-title">Locations</h3>
+      </div>
+      <div className="panel-body">
+        <table className="table table-striped">
+          <tbody>{location_rows}</tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 class Locations extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { locations: [] }
+    this.state = { data: null }
   }
 
   componentDidMount() {
@@ -12,13 +40,13 @@ class Locations extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.term !== this.props.term) {
-      this.setState({ locations: [] })
+      this.setState({ data: null })
       this.fetchLocations()
     }
   }
 
   fetchLocations() {
-    this.setState({ locations: [] })
+    this.setState({ data: null })
 
     fetch(
       "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
@@ -28,36 +56,12 @@ class Locations extends React.Component {
         return response.json()
       })
       .then(json => {
-        this.setState({ locations: json })
+        this.setState({ data: json })
       })
   }
 
   render() {
-    const location_rows = this.state.locations.map(
-      ({ place_id, display_name, lat, lon }) => {
-        return (
-          <tr key={place_id}>
-            <td>{display_name}</td>
-            <td>
-              {lat},{lon}
-            </td>
-          </tr>
-        )
-      }
-    )
-
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title">Locations</h3>
-        </div>
-        <div className="panel-body">
-          <table className="table table-striped">
-            <tbody>{location_rows}</tbody>
-          </table>
-        </div>
-      </div>
-    )
+    return <LocationsDisplay data={this.state.data} />
   }
 }
 

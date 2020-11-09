@@ -1,9 +1,39 @@
 import React from "react"
 
+const RedditDisplay = props => {
+  const reddit_links = props.data && props.data.data && props.data.data.children.map(
+    ({ data: { id, title, url, created, subscribers } }) => {
+      const date = new Date(1000 * created) // Convert seconds to milliseconds
+      return (
+        <tr key={id}>
+          <td>{date.toLocaleDateString()}</td>
+          <td>{subscribers}</td>
+          <td>
+            <a href={"https://reddit.com" + url}>{title}</a>
+          </td>
+        </tr>
+      )
+    }
+  )
+
+  return (
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h3 className="panel-title">Reddit</h3>
+      </div>
+      <div className="panel-body">
+        <table className="table table-striped">
+          <tbody>{reddit_links}</tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
+
 class Reddit extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { reddit_hits: [] }
+    this.state = { data: null }
   }
 
   componentDidMount() {
@@ -12,7 +42,7 @@ class Reddit extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.term !== this.props.term) {
-      this.setState({ reddit_hits: [] })
+      this.setState({ data: null })
       this.fetchRedditData()
     }
   }
@@ -26,38 +56,12 @@ class Reddit extends React.Component {
         return response.json()
       })
       .then(json => {
-        this.setState({ reddit_hits: json })
+        this.setState({ data: json })
       })
   }
 
   render() {
-    const reddit_links = this.state.reddit_hits.data && this.state.reddit_hits.data.children.map(
-      ({ data: { id, title, url, created, subscribers } }) => {
-        const date = new Date(1000 * created) // Convert seconds to milliseconds
-        return (
-          <tr key={id}>
-            <td>{date.toLocaleDateString()}</td>
-            <td>{subscribers}</td>
-            <td>
-              <a href={"https://reddit.com" + url}>{title}</a>
-            </td>
-          </tr>
-        )
-      }
-    )
-
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title">Reddit</h3>
-        </div>
-        <div className="panel-body">
-          <table className="table table-striped">
-            <tbody>{reddit_links}</tbody>
-          </table>
-        </div>
-      </div>
-    )
+    return <RedditDisplay data={this.state.data} />
   }
 }
 
