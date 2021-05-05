@@ -35,7 +35,7 @@ class HackerNews extends React.Component {
 
   fetchHNData() {
     fetch(
-      "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
+      "http://new-hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
       encodeURIComponent(this.props.term)
     )
       .then(response => {
