@@ -45,7 +45,7 @@ class HackerNewsDisplay extends React.Component {
 
 class HackerNews extends React.Component {
   render() {
-    const url = "http://new-hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
+    const url = "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
       encodeURIComponent(this.props.term)
 
     return <JsonFetcher DataConsumer={HackerNewsDisplay} url={url} />
