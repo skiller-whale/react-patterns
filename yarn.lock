@@ -1988,13 +1988,6 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.8, debug@^2.6.9:
   dependencies:
     ms "2.0.0"
 
-debug@=3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
-  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
-  dependencies:
-    ms "2.0.0"
-
 debug@^3.1.1, debug@^3.2.5:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -2673,11 +2666,9 @@ flush-write-stream@^1.0.0:
     readable-stream "^2.0.4"
 
 follow-redirects@^1.0.0:
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.8.tgz#1dbfe13e45ad969f813e86c00e5296f525c885a1"
-  integrity sha512-sy1mXPmv7kLAMKW/8XofG7o9T+6gAjzdZK4AJF6ryqQYUa/hnzgiypoeUecZ53x7XiqKNEpNqLtS97MshW2nxg==
-  dependencies:
-    debug "=3.1.0"
+  version "1.14.7"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.14.7.tgz#2004c02eb9436eee9a21446a6477debf17e81685"
+  integrity sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ==
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
@@ -5572,10 +5563,10 @@ signal-exit@^3.0.0:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-skiller-whale-sync@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/skiller-whale-sync/-/skiller-whale-sync-1.6.0.tgz#33818deb7a9c00be795aa05f31d4f4730a6a5a88"
-  integrity sha512-fhGE9VcOjx4mdwT+z8e7C4BNsAxtmkN1xjWVwjnUNeSJ+9tr9Z883OUdtg61gEnjGeQdswAg1RrUVMmZao+24Q==
+skiller-whale-sync@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/skiller-whale-sync/-/skiller-whale-sync-1.7.0.tgz#e216913938d267b8f1c2b8df52b3fdc342fcab48"
+  integrity sha512-OgjhDn6RroMie/t6GtPQe/aNEkRSxcGk+Lb09r9kpnIYvJXD9CSc4YDirUYYLiqmAMEDB2HEHdYnPU5zd7Bdxg==
   dependencies:
     concurrently "^6.2.1"
     cross-spawn "^7.0.3"
