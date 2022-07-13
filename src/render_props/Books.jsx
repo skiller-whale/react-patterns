@@ -1,7 +1,7 @@
 import React from "react"
 
 const BooksDisplay = props => {
-  const book_rows = props.data.map(book => {
+  const book_rows = props.data && props.data.map(book => {
     const subject_list = book.subjects && book.subjects.join("; ")
     return (
       <tr key={book.key}>
@@ -32,7 +32,7 @@ const BooksDisplay = props => {
 class Books extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { data: [] }
+    this.state = { data: null }
   }
 
   componentDidMount() {
@@ -41,7 +41,7 @@ class Books extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.term !== this.props.term) {
-      this.setState({ data: [] })
+      this.setState({ data: null })
       this.fetchBookData()
     }
   }

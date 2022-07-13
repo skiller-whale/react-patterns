@@ -5563,10 +5563,10 @@ signal-exit@^3.0.0:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-skiller-whale-sync@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/skiller-whale-sync/-/skiller-whale-sync-1.7.0.tgz#e216913938d267b8f1c2b8df52b3fdc342fcab48"
-  integrity sha512-OgjhDn6RroMie/t6GtPQe/aNEkRSxcGk+Lb09r9kpnIYvJXD9CSc4YDirUYYLiqmAMEDB2HEHdYnPU5zd7Bdxg==
+skiller-whale-sync@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/skiller-whale-sync/-/skiller-whale-sync-1.8.0.tgz#c01710e9d9bf8cb37a454699582c9db81c68ff4e"
+  integrity sha512-uwPLVBTOa2KI756hVeLFh4V+ZdIuH+qi4EZUhPjsnRKklYIu5Vpz+76f3t2JEN5IGjZ8VyTUFgtbxs26b7a1TA==
   dependencies:
     concurrently "^6.2.1"
     cross-spawn "^7.0.3"

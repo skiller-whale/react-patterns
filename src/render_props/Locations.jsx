@@ -46,8 +46,6 @@ class Locations extends React.Component {
   }
 
   fetchLocations() {
-    this.setState({ data: null })
-
     fetch(
       "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
         encodeURIComponent(this.props.term)
