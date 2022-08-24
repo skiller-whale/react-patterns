@@ -1,20 +1,23 @@
 import React from "react"
 
-const RedditDisplay = props => {
-  const reddit_links = props.data && props.data.data && props.data.data.children.map(
-    ({ data: { id, title, url, created, subscribers } }) => {
-      const date = new Date(1000 * created) // Convert seconds to milliseconds
-      return (
-        <tr key={id}>
-          <td>{date.toLocaleDateString()}</td>
-          <td>{subscribers}</td>
-          <td>
-            <a href={"https://reddit.com" + url}>{title}</a>
-          </td>
-        </tr>
-      )
-    }
-  )
+const RedditDisplay = (props) => {
+  const reddit_links =
+    props.data &&
+    props.data.data &&
+    props.data.data.children.map(
+      ({ data: { id, title, url, created, subscribers } }) => {
+        const date = new Date(1000 * created) // Convert seconds to milliseconds
+        return (
+          <tr key={id}>
+            <td>{date.toLocaleDateString()}</td>
+            <td>{subscribers}</td>
+            <td>
+              <a href={"https://reddit.com" + url}>{title}</a>
+            </td>
+          </tr>
+        )
+      }
+    )
 
   return (
     <div className="panel panel-default">
@@ -50,12 +53,12 @@ class Reddit extends React.Component {
   fetchRedditData() {
     fetch(
       "https://api.reddit.com/api/subreddit_autocomplete_v2.json?limit=10&include_over_18=false&query=" +
-      encodeURIComponent(this.props.term)
+        encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ data: json })
       })
   }

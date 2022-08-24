@@ -1,8 +1,9 @@
 import React from "react"
 
-const LocationsDisplay = props => {
-  const location_rows = props.data && props.data.map(
-    ({ place_id, display_name, lat, lon }) => {
+const LocationsDisplay = (props) => {
+  const location_rows =
+    props.data &&
+    props.data.map(({ place_id, display_name, lat, lon }) => {
       return (
         <tr key={place_id}>
           <td>{display_name}</td>
@@ -11,8 +12,7 @@ const LocationsDisplay = props => {
           </td>
         </tr>
       )
-    }
-  )
+    })
 
   return (
     <div className="panel panel-default">
@@ -50,10 +50,10 @@ class Locations extends React.Component {
       "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
         encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ data: json })
       })
   }

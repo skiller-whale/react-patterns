@@ -24,10 +24,10 @@ class Locations extends React.Component {
       "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
         encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ locations: json })
       })
   }

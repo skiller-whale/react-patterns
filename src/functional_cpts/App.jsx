@@ -22,7 +22,7 @@ class App extends React.Component {
       <div className="container">
         <h5>Edit me in src/functional_cpts/App.jsx</h5>
         <h1>Omnisearch</h1>
-        <SearchBox setSearchTerm={this.setSearchTerm}/>
+        <SearchBox setSearchTerm={this.setSearchTerm} />
         <div className="row">
           <div className="col-lg-6 col-md-12">
             <Reddit term={this.state.term} />

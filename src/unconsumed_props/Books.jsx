@@ -20,18 +20,18 @@ class Books extends React.Component {
   fetchBookData() {
     fetch(
       "http://openlibrary.org/query.json?type=/type/edition&limit=10&*=&title=" +
-      encodeURIComponent(this.props.term)
+        encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ book_hits: json })
       })
   }
 
   render() {
-    const book_rows = this.state.book_hits.map(book => {
+    const book_rows = this.state.book_hits.map((book) => {
       const subject_list = book.subjects && book.subjects.join("; ")
       return (
         <tr key={book.key}>
@@ -50,9 +50,7 @@ class Books extends React.Component {
         </div>
         <div className="panel-body">
           <table className="table table-striped">
-            <tbody>
-              {book_rows}
-            </tbody>
+            <tbody>{book_rows}</tbody>
           </table>
         </div>
       </div>

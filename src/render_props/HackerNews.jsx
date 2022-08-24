@@ -1,25 +1,36 @@
 import React from "react"
 
-const HackerNewsRow = props => {
-  return <tr>
-    <td>{props.date.toLocaleDateString()}</td>
-    <td>{props.points}</td>
-    <td>
-      <a href={props.url}>{props.title}</a>
-    </td>
-  </tr>
+const HackerNewsRow = (props) => {
+  return (
+    <tr>
+      <td>{props.date.toLocaleDateString()}</td>
+      <td>{props.points}</td>
+      <td>
+        <a href={props.url}>{props.title}</a>
+      </td>
+    </tr>
+  )
 }
 
-const HackerNewsDisplay = props => {
+const HackerNewsDisplay = (props) => {
   // We get other fields back that we're not using. For example, the user who submitted the URL is in the author field.
-  const hn_links = props.data && props.data.hits.map(
-    ({ objectID, author, created_at, points, title, url }) => {
-      const date = new Date(created_at)
-      return (
-        <HackerNewsRow key={objectID} author={author} date={date} points={points} url={url} title={title} />
-      )
-    }
-  )
+  const hn_links =
+    props.data &&
+    props.data.hits.map(
+      ({ objectID, author, created_at, points, title, url }) => {
+        const date = new Date(created_at)
+        return (
+          <HackerNewsRow
+            key={objectID}
+            author={author}
+            date={date}
+            points={points}
+            url={url}
+            title={title}
+          />
+        )
+      }
+    )
   return (
     <div className="panel panel-default">
       <div className="panel-heading">
@@ -54,12 +65,12 @@ class HackerNews extends React.Component {
   fetchHNData() {
     fetch(
       "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
-      encodeURIComponent(this.props.term)
+        encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ data: json })
       })
   }

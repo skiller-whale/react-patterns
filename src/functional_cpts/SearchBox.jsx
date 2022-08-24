@@ -13,16 +13,19 @@ class SearchBox extends React.Component {
   }
 
   render() {
-    return <div className="form-group">
-      <label htmlFor="searchField">Search everything in one place</label>
-      <input className="form-control"
-            type="text"
-            id="searchField"
-            onChange={this.onTermChanged}
-            placeholder="London"
-      />
-    </div>
+    return (
+      <div className="form-group">
+        <label htmlFor="searchField">Search everything in one place</label>
+        <input
+          className="form-control"
+          type="text"
+          id="searchField"
+          onChange={this.onTermChanged}
+          placeholder="London"
+        />
+      </div>
+    )
   }
 }
 
-export default SearchBox;
+export default SearchBox

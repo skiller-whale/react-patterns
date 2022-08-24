@@ -2,7 +2,7 @@ import React from "react"
 
 class JsonFetcher extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = { data: null }
   }
 
@@ -19,20 +19,17 @@ class JsonFetcher extends React.Component {
   fetchData() {
     this.setState({ data: null })
     fetch(this.props.url)
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ data: json })
       })
   }
 
   render() {
-    return (
-      <this.props.DataConsumer data={this.state.data} />
-    )
+    return <this.props.DataConsumer data={this.state.data} />
   }
 }
 
 export default JsonFetcher
-

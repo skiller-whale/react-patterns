@@ -6,13 +6,15 @@ class HackerNewsRow extends React.Component {
   }
 
   render() {
-    return <tr>
-      <td>{this.props.date.toLocaleDateString()}</td>
-      <td>{this.props.points}</td>
-      <td>
-        <a href={this.props.url}>{this.props.title}</a>
-      </td>
-    </tr>
+    return (
+      <tr>
+        <td>{this.props.date.toLocaleDateString()}</td>
+        <td>{this.props.points}</td>
+        <td>
+          <a href={this.props.url}>{this.props.title}</a>
+        </td>
+      </tr>
+    )
   }
 }
 
@@ -36,12 +38,12 @@ class HackerNews extends React.Component {
   fetchHNData() {
     fetch(
       "http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=" +
-      encodeURIComponent(this.props.term)
+        encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         const hits = json["hits"]
         this.setState({ hn_hits: hits })
       })
@@ -53,7 +55,14 @@ class HackerNews extends React.Component {
       ({ objectID, author, created_at, points, title, url }) => {
         const date = new Date(created_at)
         return (
-          <HackerNewsRow key={objectID} author={author} date={date} points={points} url={url} title={title} />
+          <HackerNewsRow
+            key={objectID}
+            author={author}
+            date={date}
+            points={points}
+            url={url}
+            title={title}
+          />
         )
       }
     )

@@ -7,8 +7,9 @@ class LocationDisplay extends React.Component {
   }
 
   render() {
-    const location_rows = this.props.data && this.props.data.map(
-      ({ place_id, display_name, lat, lon }) => {
+    const location_rows =
+      this.props.data &&
+      this.props.data.map(({ place_id, display_name, lat, lon }) => {
         return (
           <tr key={place_id}>
             <td>{display_name}</td>
@@ -17,8 +18,7 @@ class LocationDisplay extends React.Component {
             </td>
           </tr>
         )
-      }
-    )
+      })
 
     return (
       <div className="panel panel-default">
@@ -41,7 +41,8 @@ class Locations extends React.Component {
   }
 
   render() {
-    const url = "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
+    const url =
+      "https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=" +
       encodeURIComponent(this.props.term)
 
     return <JsonFetcher DataConsumer={LocationDisplay} url={url} />

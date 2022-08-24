@@ -20,31 +20,33 @@ class Reddit extends React.Component {
   fetchRedditData() {
     fetch(
       "https://api.reddit.com/api/subreddit_autocomplete_v2.json?limit=10&include_over_18=false&query=" +
-      encodeURIComponent(this.props.term)
+        encodeURIComponent(this.props.term)
     )
-      .then(response => {
+      .then((response) => {
         return response.json()
       })
-      .then(json => {
+      .then((json) => {
         this.setState({ reddit_hits: json })
       })
   }
 
   render() {
-    const reddit_links = this.state.reddit_hits.data && this.state.reddit_hits.data.children.map(
-      ({ data: { id, title, url, created, subscribers } }) => {
-        const date = new Date(1000 * created) // Convert seconds to milliseconds
-        return (
-          <tr key={id}>
-            <td>{date.toLocaleDateString()}</td>
-            <td>{subscribers}</td>
-            <td>
-              <a href={"https://reddit.com" + url}>{title}</a>
-            </td>
-          </tr>
-        )
-      }
-    )
+    const reddit_links =
+      this.state.reddit_hits.data &&
+      this.state.reddit_hits.data.children.map(
+        ({ data: { id, title, url, created, subscribers } }) => {
+          const date = new Date(1000 * created) // Convert seconds to milliseconds
+          return (
+            <tr key={id}>
+              <td>{date.toLocaleDateString()}</td>
+              <td>{subscribers}</td>
+              <td>
+                <a href={"https://reddit.com" + url}>{title}</a>
+              </td>
+            </tr>
+          )
+        }
+      )
 
     return (
       <div className="panel panel-default">
