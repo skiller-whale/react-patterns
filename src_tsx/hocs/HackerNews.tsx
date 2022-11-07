@@ -1,6 +1,22 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const HackerNewsDisplay = ({ data }) => (
+type HackerNewsHit = {
+  objectID: string
+  created_at: string
+  points: number
+  title: string
+  url: string
+}
+
+type HackerNewsData = {
+  hits: HackerNewsHit[]
+}
+
+type DisplayProps = {
+  data?: HackerNewsData
+}
+
+const HackerNewsDisplay: FC<DisplayProps> = ({ data }) => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="panel-title">Hacker News</h3>
@@ -23,7 +39,11 @@ const HackerNewsDisplay = ({ data }) => (
   </div>
 )
 
-const HackerNews = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const HackerNews: FC<Props> = ({ term }) => {
   const [data, setData] = useState(undefined)
 
   const fetchData = async () => {

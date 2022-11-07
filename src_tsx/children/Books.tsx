@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const Books = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const Books: FC<Props> = ({ term }) => {
   const [hits, setHits] = useState([])
 
   const fetchHits = async () => {

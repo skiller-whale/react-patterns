@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { type FC, type ChangeEventHandler, useState } from "react"
 import HackerNews from "./HackerNews"
 import Reddit from "./Reddit"
 
-const App = () => {
+const App: FC = () => {
   const [term, setTerm] = useState("London")
 
-  const changeTerm = (event) => {
+  const changeTerm: ChangeEventHandler<HTMLInputElement> = (event) => {
     event.preventDefault()
     setTerm(event.currentTarget.value)
   }

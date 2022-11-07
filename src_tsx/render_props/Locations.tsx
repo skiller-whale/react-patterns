@@ -1,6 +1,17 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const LocationsDisplay = ({ data }) => (
+type LocationsHit = {
+  place_id: string
+  display_name: string
+  lat: number
+  lon: number
+}
+
+type DisplayProps = {
+  data?: LocationsHit[]
+}
+
+const LocationsDisplay: FC<DisplayProps> = ({ data }) => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="panel-title">Locations</h3>
@@ -22,7 +33,11 @@ const LocationsDisplay = ({ data }) => (
   </div>
 )
 
-const Locations = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const Locations: FC<Props> = ({ term }) => {
   const [data, setData] = useState(undefined)
 
   const fetchData = async () => {

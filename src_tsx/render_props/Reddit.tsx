@@ -1,6 +1,24 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const RedditDisplay = ({ data }) => (
+type RedditHit = {
+  data: {
+    id: string
+    title: string
+    url: string
+    created: number
+    subscribers: number
+  }
+}
+
+type DisplayProps = {
+  data?: {
+    data: {
+      children: RedditHit[]
+    }
+  }
+}
+
+const RedditDisplay: FC<DisplayProps> = ({ data }) => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="panel-title">Reddit</h3>
@@ -23,7 +41,11 @@ const RedditDisplay = ({ data }) => (
   </div>
 )
 
-const Reddit = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const Reddit: FC<Props> = ({ term }) => {
   const [data, setData] = useState(undefined)
 
   const fetchData = async () => {

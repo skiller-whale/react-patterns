@@ -1,16 +1,20 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const HackerNews = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const Locations: FC<Props> = ({ term }) => {
   const [hits, setHits] = useState([])
 
   const fetchHits = async () => {
     const response = await fetch(
-      `http://hn.algolia.com/api/v1/search?hitsPerPage=10&query=${encodeURIComponent(
+      `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${encodeURIComponent(
         term
       )}`
     )
     const json = await response.json()
-    setHits(json.hits)
+    setHits(json)
   }
 
   useEffect(() => {
@@ -21,17 +25,16 @@ const HackerNews = ({ term }) => {
   return (
     <div className="panel panel-default">
       <div className="panel-heading">
-        <h3 className="panel-title">Hacker News</h3>
+        <h3 className="panel-title">Locations</h3>
       </div>
       <div className="panel-body">
         <table className="table table-striped">
           <tbody>
-            {hits.map(({ objectID, created_at, points, url, title }) => (
-              <tr key={objectID}>
-                <td>{new Date(created_at).toLocaleDateString()}</td>
-                <td>{points}</td>
+            {hits.map(({ place_id, display_name, lat, lon }) => (
+              <tr key={place_id}>
+                <td>{display_name}</td>
                 <td>
-                  <a href={url}>{title}</a>
+                  {lat},{lon}
                 </td>
               </tr>
             ))}
@@ -42,4 +45,4 @@ const HackerNews = ({ term }) => {
   )
 }
 
-export default HackerNews
+export default Locations

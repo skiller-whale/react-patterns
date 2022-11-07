@@ -1,11 +1,5 @@
 module.exports = {
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
+  parser: "@typescript-eslint/parser",
   extends: ["plugin:prettier/recommended"],
   plugins: ["import"],
   rules: {

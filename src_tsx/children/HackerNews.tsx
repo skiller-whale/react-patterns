@@ -1,6 +1,10 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const HackerNews = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const HackerNews: FC<Props> = ({ term }) => {
   const [hits, setHits] = useState([])
 
   const fetchHits = async () => {

@@ -1,61 +1,44 @@
-import React from "react"
+import { useEffect, useState } from "react"
 
-class Books extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { book_hits: [] }
-  }
+const Books = ({ term }) => {
+  const [hits, setHits] = useState([])
 
-  componentDidMount() {
-    this.fetchBookData()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.term !== this.props.term) {
-      this.setState({ book_hits: [] })
-      this.fetchBookData()
-    }
-  }
-
-  fetchBookData() {
-    fetch(
-      "http://openlibrary.org/query.json?type=/type/edition&limit=10&*=&title=" +
-        encodeURIComponent(this.props.term)
+  const fetchHits = async () => {
+    const response = await fetch(
+      `http://openlibrary.org/query.json?type=/type/edition&limit=10&*=&title=${encodeURIComponent(
+        term
+      )}`
     )
-      .then((response) => {
-        return response.json()
-      })
-      .then((json) => {
-        this.setState({ book_hits: json })
-      })
+    const json = await response.json()
+    setHits(json)
   }
 
-  render() {
-    const book_rows = this.state.book_hits.map((book) => {
-      const subject_list = book.subjects && book.subjects.join("; ")
-      return (
-        <tr key={book.key}>
-          <td>{book.title}</td>
-          <td>{book.subtitle}</td>
-          <td>{subject_list}</td>
-          <td>{book.publish_date}</td>
-        </tr>
-      )
-    })
+  useEffect(() => {
+    setHits([])
+    fetchHits()
+  }, [term])
 
-    return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title">Books</h3>
-        </div>
-        <div className="panel-body">
-          <table className="table table-striped">
-            <tbody>{book_rows}</tbody>
-          </table>
-        </div>
+  return (
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h3 className="panel-title">Books</h3>
       </div>
-    )
-  }
+      <div className="panel-body">
+        <table className="table table-striped">
+          <tbody>
+            {hits.map(({ key, title, subtitle, subjects, publish_date }) => (
+              <tr key={key}>
+                <td>{title}</td>
+                <td>{subtitle}</td>
+                <td>{subjects ? subjects.join("; ") : null}</td>
+                <td>{publish_date}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
 }
 
 export default Books

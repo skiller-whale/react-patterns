@@ -1,6 +1,18 @@
-import { useEffect, useState } from "react"
+import { type FC, useEffect, useState } from "react"
 
-const BooksDisplay = ({ data }) => (
+type BooksHit = {
+  key: string
+  title: string
+  subtitle: string
+  publish_date: string
+  subjects?: string[]
+}
+
+type DisplayProps = {
+  data?: BooksHit[]
+}
+
+const BooksDisplay: FC<DisplayProps> = ({ data }) => (
   <div className="panel panel-default">
     <div className="panel-heading">
       <h3 className="panel-title">Books</h3>
@@ -22,7 +34,11 @@ const BooksDisplay = ({ data }) => (
   </div>
 )
 
-const Books = ({ term }) => {
+type Props = {
+  term: string
+}
+
+const Books: FC<Props> = ({ term }) => {
   const [data, setData] = useState(undefined)
 
   const fetchData = async () => {
